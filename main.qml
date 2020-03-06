@@ -5,7 +5,7 @@ import QtQuick.Window 2.2
 import "qrc:/"
 ApplicationWindow {
     id: app
-    visible: true
+    visible: false
     width: 300
     height: Screen.desktopAvailableHeight
     flags: Qt.Window | Qt.FramelessWindowHint// | Qt.WindowStaysOnTopHint
@@ -18,10 +18,13 @@ ApplicationWindow {
     property color c3: 'gray'
     property color c4: 'red'
     property string uHtml: ''
+    property bool voiceEnabled: true
+    property string user: ''
+    property string url: ''
     FontLoader{name: "FontAwesome"; source: "qrc:/fontawesome-webfont.ttf"}
     USettings{
         id: unikSettings
-        url:'./'+app.moduleName
+        url:pws+'/'+app.moduleName
     }
     Item{
         id: xApp
@@ -33,33 +36,9 @@ ApplicationWindow {
                 anchors.fill: parent
             }
         }
-        XChat{id:xChat}
         ULogView{id: uLogView}
         UWarnings{id: uWarnings}
-
     }
-    Row{
-        spacing: app.fs*3
-        Boton{
-            w:app.fs*2
-            h:w
-            t:'R'
-            onClicking:{
-                //xChat.visible=!xChat.visible
-                setMsg('Mensaje de prueba')
-            }
-        }
-        Boton{
-            w:app.fs*2
-            h:w
-            t:'R2'
-            onClicking:{
-                //xChat.visible=!xChat.visible
-                sendMsg()
-            }
-        }
-    }
-
     Timer{
         id:tCheck
         running: true
@@ -80,8 +59,17 @@ ApplicationWindow {
                         let d7=d6.split(':')
                         let d8=d7[0].split(' ')
                         let usuario=d8[d8.length-1].replace('chat\n', '')
-                        unik.speak(usuario+' dice '+mensaje)
-                        xChat.log(usuario+': '+mensaje+'<br />')
+                        let msg=usuario+' dice '+mensaje
+                        unik.speak(msg)
+                        if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('show')>=0){
+                            app.visible=true
+                        }
+                        if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('hide')>=0){
+                            app.visible=false
+                        }
+                        if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('launch')>=0){
+                            Qt.openUrlExternally(app.url)
+                        }
                         app.flags = Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
                         app.flags = Qt.Window | Qt.FramelessWindowHint
                     }
@@ -92,14 +80,26 @@ ApplicationWindow {
     }
     Component.onCompleted: {
         let user=''
+        let launch=false
         let args = Qt.application.arguments
+        //uLogView.showLog(args)
         for(var i=0;i<args.length;i++){
-            if(args[i].indexOf('-twitchUser=')){
+            //uLogView.showLog(args[i])
+            if(args[i].indexOf('-twitchUser=')>=0){
                 let d0=args[i].split('-twitchUser=')
+                //uLogView.showLog(d0[1])
                 user=d0[1]
+                app.user=user
+                app.url='https://www.twitch.tv/embed/'+user+'/chat'
+            }
+            if(args[i].indexOf('-launch')>=0){
+                    launch=true
             }
         }
-        wv.url='https://www.twitch.tv/embed/'+user+'/chat'
+        wv.url=app.url
+        if(launch){
+            Qt.openUrlExternally(app.url)
+        }
     }
     Shortcut{
         sequence: 'Esc'

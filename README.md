@@ -30,6 +30,23 @@ The -git param is for download the application source code from this repository 
 
 The - twithUser is for set your user name of twitch. So you see your chat.
 
+The -launch is a optinal parameter for open in your browser the chat room automatically.
+
+## Step 3 Optional
+
+When you is running this module twitch-chat-to-voice in your computer, only will speak a audio message when somebody or you was sended a message into the chat room.
+
+If you open in a browser https://www.twitch.tv/embed/<twitch user id>/chat, and you send a message, this message will speack in your computer.
+
+## Message actions
+
+When you send a message with the simple word "show", the twitch-chat-to-voice will be visible in desktop.
+
+When you send a message with the simple word "hide", the twitch-chat-to-voice will be hidden in desktop.
+
+When you send a message with the simple word "launch", the twitch-chat-to-voice will open in your browser your chat room.
+
+
 ## More information
 
 E-Mail: nextsigner@gmail.com
