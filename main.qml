@@ -91,7 +91,15 @@ ApplicationWindow {
         }
     }
     Component.onCompleted: {
-        wv.url='https://www.twitch.tv/embed/nextsigner/chat'
+        let user=''
+        let args = Qt.application.arguments
+        for(var i=0;i<args.length;i++){
+            if(args[i].indexOf('-twithUser=')){
+                let d0=args[i].split('-twithUser=')
+                user=d0[1]
+            }
+        }
+        wv.url='https://www.twitch.tv/embed/'+user+'/chat'
     }
     Shortcut{
         sequence: 'Esc'

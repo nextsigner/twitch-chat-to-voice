@@ -21,8 +21,14 @@ Download and install Unik Qml Engine from www.unikode.org
 Run Unik Qml Engine with the -git parameter.
 
 For example from terminal, cmd or desktop icon:
-Windows: C:/Program Files(x86)/unik/unik.exe -git=https://github.com/nextsigner/twitch-chat-to-voice.git
-GNU/Linux: unik -git=https://github.com/nextsigner/twitch-chat-to-voice.git
+
+Windows: C:/Program Files(x86)/unik/unik.exe -git=https://github.com/nextsigner/twitch-chat-to-voice.git -twithUser=nextsigner
+
+GNU/Linux: unik -git=https://github.com/nextsigner/twitch-chat-to-voice.git -twithUser=nextsigner
+
+The -git param is for download the application source code from this repository and run automatically with unik. Unik download, uncompress and run this repository.
+
+The - twithUser is for set your user name of twitch. So you see your chat.
 
 ## More information
 
