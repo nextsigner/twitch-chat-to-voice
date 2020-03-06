@@ -5,7 +5,7 @@ import QtQuick.Window 2.2
 import "qrc:/"
 ApplicationWindow {
     id: app
-    visible: false
+    visible: true
     width: 300
     height: Screen.desktopAvailableHeight
     flags: Qt.Window | Qt.FramelessWindowHint// | Qt.WindowStaysOnTopHint
@@ -94,8 +94,8 @@ ApplicationWindow {
         let user=''
         let args = Qt.application.arguments
         for(var i=0;i<args.length;i++){
-            if(args[i].indexOf('-twithUser=')){
-                let d0=args[i].split('-twithUser=')
+            if(args[i].indexOf('-twitchUser=')){
+                let d0=args[i].split('-twitchUser=')
                 user=d0[1]
             }
         }
