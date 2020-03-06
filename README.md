@@ -12,7 +12,9 @@ This projects is a QtQuick module for running Unik Qml Engine application.
 
 ## Step 1
 
-Download Unik Qml Engine from www.unikode.org
+Download and install Unik Qml Engine from www.unikode.org
+
+[Unik Download Page](http://www.unikode.org/p/download.html)
 
 ## Step 2
 
