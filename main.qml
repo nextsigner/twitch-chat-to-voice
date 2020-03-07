@@ -46,7 +46,7 @@ ApplicationWindow {
         id:tCheck
         running: false
         repeat: true
-        interval: 5000
+        interval: 1000
         onTriggered: {
             wv.runJavaScript('document.getElementById("root").innerText', function(result) {
                 if(result!==app.uHtml){
