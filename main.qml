@@ -34,6 +34,9 @@ ApplicationWindow {
             WebEngineView{
                 id: wv
                 anchors.fill: parent
+                onLoadProgressChanged: {
+                    if(loadProgress===100)tCheck.start()
+                }
             }
         }
         ULogView{id: uLogView}
@@ -41,9 +44,9 @@ ApplicationWindow {
     }
     Timer{
         id:tCheck
-        running: true
+        running: false
         repeat: true
-        interval: 500
+        interval: 5000
         onTriggered: {
             wv.runJavaScript('document.getElementById("root").innerText', function(result) {
                 if(result!==app.uHtml){
@@ -56,8 +59,8 @@ ApplicationWindow {
 
                         let d5=d0.split('\n\n')
                         let d6=d5[d5.length-3]
-                        let d7=d6.split(':')
-                        let d8=d7[0].split(' ')
+                        let d7=d0.split(':')
+                        let d8=d7[d7.length-2].split('\n')
                         let usuario=d8[d8.length-1].replace('chat\n', '')
                         let msg=usuario+' dice '+mensaje
                         unik.speak(msg)
