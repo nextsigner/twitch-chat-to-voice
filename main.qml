@@ -61,9 +61,11 @@ ApplicationWindow {
                         let d6=d5[d5.length-3]
                         let d7=d0.split(':')
                         let d8=d7[d7.length-2].split('\n')
-                        let usuario=d8[d8.length-1].replace('chat\n', '')
+                        let usuario=''+d8[d8.length-1].replace('chat\n', '')
                         let msg=usuario+' dice '+mensaje
-                        unik.speak(msg)
+                        if((''+d0).indexOf('Nightbot')<0&&(''+d0).indexOf('StreamElements')<0){
+                            unik.speak(msg)
+                        }
                         if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('show')>=0){
                             app.visible=true
                         }
@@ -78,7 +80,18 @@ ApplicationWindow {
                     }
                 }
                 app.uHtml=result
+                //uLogView.showLog(result)
             });
+        }
+    }
+    Shortcut{
+        sequence: 'Esc'
+        onActivated: {
+            if(uLogView.visible){
+                uLogView.visible=false
+                return
+            }
+            Qt.quit()
         }
     }
     Component.onCompleted: {
@@ -103,10 +116,26 @@ ApplicationWindow {
         if(launch){
             Qt.openUrlExternally(app.url)
         }
+
+        //Depurando
+        app.visible=true
+        getViewersCount()
     }
-    Shortcut{
-        sequence: 'Esc'
-        onActivated: Qt.quit()
+
+    function getViewersCount(){
+        //https://api.twitch.tv/kraken/streams?channel=nextsigner&client_id=wfvvsxt224sno6ek4ou54tipei87bg
+        //"E:/nsp/unik-dev-apps/twitch-chat-to-voice/curl/bin/curl.exe" -H 'Client-ID: wfvvsxt224sno6ek4ou54tipei87bg' -X GET 'https://api.twitch.tv/helix/streams?channel=nextsigner'
+        var req = new XMLHttpRequest();
+        req.open('GET', 'https://api.twitch.tv/kraken/streams?channel=nextsigner&client_id=wfvvsxt224sno6ek4ou54tipei87bg', true);
+        req.onreadystatechange = function (aEvt) {
+          if (req.readyState === 4) {
+             if(req.status === 200)
+              uLogView.showLog(req.responseText);
+             else
+              uLogView.showLog("Error loading page\n");
+          }
+        };
+        req.send(null);
     }
 }
 
