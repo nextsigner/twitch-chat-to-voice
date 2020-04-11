@@ -107,9 +107,10 @@ ApplicationWindow {
                 user=d0[1]
                 app.user=user
                 app.url='https://www.twitch.tv/embed/'+user+'/chat'
+                uLogView.showLog('Channel: '+app.url)
             }
             if(args[i].indexOf('-launch')>=0){
-                    launch=true
+                launch=true
             }
         }
         wv.url=app.url
@@ -119,7 +120,7 @@ ApplicationWindow {
 
         //Depurando
         app.visible=true
-        getViewersCount()
+        //getViewersCount()
     }
 
     function getViewersCount(){
@@ -128,12 +129,13 @@ ApplicationWindow {
         var req = new XMLHttpRequest();
         req.open('GET', 'https://api.twitch.tv/kraken/streams?channel=nextsigner&client_id=wfvvsxt224sno6ek4ou54tipei87bg', true);
         req.onreadystatechange = function (aEvt) {
-          if (req.readyState === 4) {
-             if(req.status === 200)
-              uLogView.showLog(req.responseText);
-             else
-              //uLogView.showLog("Error loading page\n");
-          }
+            if (req.readyState === 4) {
+                if(req.status === 200){
+                    uLogView.showLog(req.responseText);
+                }else{
+                    //uLogView.showLog("Error loading page\n");
+                }
+            }
         };
         req.send(null);
     }
