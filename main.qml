@@ -63,7 +63,7 @@ ApplicationWindow {
                         let d8=d7[d7.length-2].split('\n')
                         let usuario=''+d8[d8.length-1].replace('chat\n', '')
                         let msg=usuario+' dice '+mensaje
-                        if((''+d0).indexOf('Nightbot')<0&&(''+d0).indexOf('StreamElements')<0){
+                        if((''+msg).indexOf('chat.whatsapp.com')<0&&(''+mensaje).indexOf('!')!==1){
                             unik.speak(msg)
                         }
                         if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('show')>=0){
@@ -132,7 +132,7 @@ ApplicationWindow {
              if(req.status === 200)
               uLogView.showLog(req.responseText);
              else
-              uLogView.showLog("Error loading page\n");
+              //uLogView.showLog("Error loading page\n");
           }
         };
         req.send(null);
