@@ -5,14 +5,11 @@ import QtQuick.Window 2.2
 import "qrc:/"
 ApplicationWindow {
     id: app
-    visible: false
-    width: 300
-    height: Screen.desktopAvailableHeight
-    flags: Qt.Window | Qt.FramelessWindowHint// | Qt.WindowStaysOnTopHint
-    x:Screen.width-width
-    color: 'transparent'
-    property string moduleName: 'tcv'
-    property int fs: app.width*0.035
+    visible: true
+    visibility: "Maximized"
+    color: 'black'
+    property string moduleName: 'twitchgalaxian'
+    property int fs: app.width*0.015
     property color c1: 'black'
     property color c2: 'white'
     property color c3: 'gray'
@@ -21,6 +18,12 @@ ApplicationWindow {
     property bool voiceEnabled: true
     property string user: ''
     property string url: ''
+
+    //Variables de Juego
+    property var p1
+    property var au: []
+    property var coords: ({})
+
     FontLoader{name: "FontAwesome"; source: "qrc:/fontawesome-webfont.ttf"}
     USettings{
         id: unikSettings
@@ -29,13 +32,17 @@ ApplicationWindow {
     Item{
         id: xApp
         anchors.fill: parent
-        Rectangle{
-            anchors.fill: parent
-            WebEngineView{
-                id: wv
-                anchors.fill: parent
-                onLoadProgressChanged: {
-                    if(loadProgress===100)tCheck.start()
+        Row{
+            X1{id: x1}
+            Rectangle{
+                width: xApp.width*0.2
+                height: xApp.height
+                WebEngineView{
+                    id: wv
+                    anchors.fill: parent
+                    onLoadProgressChanged: {
+                        if(loadProgress===100)tCheck.start()
+                    }
                 }
             }
         }
@@ -63,8 +70,17 @@ ApplicationWindow {
                         let d8=d7[d7.length-2].split('\n')
                         let usuario=''+d8[d8.length-1].replace('chat\n', '')
                         let msg=usuario+' dice '+mensaje
+
                         if((''+msg).indexOf('chat.whatsapp.com')<0&&(''+mensaje).indexOf('!')!==1){
                             unik.speak(msg)
+                        }
+                        if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('!a')>=0){
+                            unik.speak(''+usuario+' lanza nave.')
+                            x1.a()
+                        }
+                        /*
+                        if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('show')>=0){
+                            app.visible=true
                         }
                         if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('show')>=0){
                             app.visible=true
@@ -74,7 +90,7 @@ ApplicationWindow {
                         }
                         if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('launch')>=0){
                             Qt.openUrlExternally(app.url)
-                        }
+                        }*/
                         app.flags = Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
                         app.flags = Qt.Window | Qt.FramelessWindowHint
                     }
@@ -94,6 +110,30 @@ ApplicationWindow {
             Qt.quit()
         }
     }
+    Shortcut{
+        sequence: 'Right'
+        onActivated: {
+            p1.r()
+        }
+    }
+    Shortcut{
+        sequence: 'Left'
+        onActivated: {
+            p1.l()
+        }
+    }
+    Shortcut{
+        sequence: 'Space'
+        onActivated: {
+            p1.s()
+        }
+    }
+    Shortcut{
+        sequence: 'r'
+        onActivated: {
+            x1.a()
+        }
+    }
     Component.onCompleted: {
         let user=''
         let launch=false
@@ -107,7 +147,7 @@ ApplicationWindow {
                 user=d0[1]
                 app.user=user
                 app.url='https://www.twitch.tv/embed/'+user+'/chat'
-                uLogView.showLog('Channel: '+app.url)
+                //uLogView.showLog('Channel: '+app.url)
             }
             if(args[i].indexOf('-launch')>=0){
                 launch=true
@@ -131,7 +171,7 @@ ApplicationWindow {
         req.onreadystatechange = function (aEvt) {
             if (req.readyState === 4) {
                 if(req.status === 200){
-                    uLogView.showLog(req.responseText);
+                    //uLogView.showLog(req.responseText);
                 }else{
                     //uLogView.showLog("Error loading page\n");
                 }
