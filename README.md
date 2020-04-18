@@ -1,8 +1,6 @@
-# twitch-galaxian 2
+# twitch-chat-to-voice
 
-
-Application for the Twitch Streamer fight with the viewers from 
-the message chat.
+Application for speak the Twitch chat message with the OS voice for advise or audio notification.
 
 ## Requeriments
 
@@ -53,4 +51,8 @@ When you send a message with the simple word "launch", the twitch-chat-to-voice 
 
 E-Mail: nextsigner@gmail.com
 Whatsapp: +54 11 3802 4370
+
+
+
+
 
