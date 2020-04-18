@@ -1,4 +1,5 @@
-# twitch-galaxian
+# twitch-galaxian 2
+
 
 Application for the Twitch Streamer fight with the viewers from 
 the message chat.
