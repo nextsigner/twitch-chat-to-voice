@@ -95,6 +95,19 @@ ApplicationWindow {
         }
     }
     Component.onCompleted: {
+        if(Qt.platform.os==='linux'){
+        let m0=(''+ttsLocales).split(',')
+        let index=0
+        for(var i=0;i<m0.length;i++){
+            console.log('Language: '+m0[i])
+            if((''+m0[i]).indexOf('Spanish (Spain)')>=0){
+                index=i
+                break
+            }
+        }
+        unik.ttsLanguageSelected(index)
+        unik.speak('Idioma Español seleccionado.')
+        }
         let user=''
         let launch=false
         let args = Qt.application.arguments
