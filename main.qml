@@ -2,7 +2,6 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import QtWebEngine 1.4
 import QtQuick.Window 2.2
-import "qrc:/"
 ApplicationWindow {
     id: app
     visible: false
@@ -11,7 +10,7 @@ ApplicationWindow {
     flags: Qt.Window | Qt.FramelessWindowHint// | Qt.WindowStaysOnTopHint
     x:Screen.width-width
     color: 'transparent'
-    property string moduleName: 'tcv'
+    property string moduleName: 'twitch-chat-to-voice'
     property int fs: app.width*0.035
     property color c1: 'black'
     property color c2: 'white'
@@ -24,7 +23,7 @@ ApplicationWindow {
     FontLoader{name: "FontAwesome"; source: "qrc:/fontawesome-webfont.ttf"}
     USettings{
         id: unikSettings
-        url:pws+'/'+app.moduleName
+        url:pws+'/'+app.moduleName+'/cfg'
     }
     Item{
         id: xApp
@@ -96,18 +95,20 @@ ApplicationWindow {
     }
     Component.onCompleted: {
         if(Qt.platform.os==='linux'){
-        let m0=(''+ttsLocales).split(',')
-        let index=0
-        for(var i=0;i<m0.length;i++){
-            console.log('Language: '+m0[i])
-            if((''+m0[i]).indexOf('Spanish (Spain)')>=0){
-                index=i
-                break
+            let m0=(''+ttsLocales).split(',')
+            let index=0
+            for(var i=0;i<m0.length;i++){
+                console.log('Language: '+m0[i])
+                if((''+m0[i]).indexOf('Spanish (Spain)')>=0){
+                    index=i
+                    break
+                }
             }
+            unik.ttsEngineSelected(0)
+            unik.ttsLanguageSelected(index)
+            //unik.speak('Idioma Español seleccionado.')
         }
-        unik.ttsLanguageSelected(index)
-        unik.speak('Idioma Español seleccionado.')
-        }
+
         let user=''
         let launch=false
         let args = Qt.application.arguments
