@@ -2,7 +2,7 @@ import QtQuick 2.0
 Item{
     id: r
     property bool loaded: false
-    property string url: 'conf-unik'
+    property string url: pws+'/settings.json'
     property string lang: 'es'
     property int currentNumColor: 9
     property string defaultColors: "black-white-#666-#aaa|black-white-#aaa-#666|white-black-#aaa-#666|white-black-#666-#aaa|white-#006edb-#00b7b7-black|#006edb-white-#00b7b7-black|#006edb-white-black-#00b7b7|#00b7b7-white-#006edb-black|#00b7b7-black-#006edb-white|black-#00b7b7-#006edb-white|black-#00b7b7-white-#006edb|#1fbc05-black-green-white|#1fbc05-black-white-green|black-#1fbc05-white-green|black-#1fbc05-green-white|black-red-#ff6666-white|black-red-white-#ff6666|black-#ff6666-red-white|black-#ff6666-white-red|red-black-#ff6666-white|red-black-white-#ff6666|#ff2200-#ff8833-black-white|#ff2200-#ff8833-white-black|#930000-#ff9224-white-black|#ff9224-#930000-white-black|#ff9224-white-#930000-black|#930000-white-#ff9224-black"
@@ -67,8 +67,8 @@ Item{
     }
 
     Component.onCompleted: {
-        console.log('Archivo Unik Settings: '+pws+'/conf-'+r.url)
-        if(!unik.fileExist(pws+'/conf-'+r.url)){
+        console.log('Archivo Unik Settings: '+r.url)
+        if(!unik.fileExist(r.url)){
             console.log('Archivo Unik Settings inexistente.')
             setCfgFile()
         }else{

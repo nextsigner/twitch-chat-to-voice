@@ -10,7 +10,7 @@ ApplicationWindow {
     flags: Qt.Window | Qt.FramelessWindowHint// | Qt.WindowStaysOnTopHint
     x:Screen.width-width
     color: 'transparent'
-    property string moduleName: 'twitch-chat-to-voice'
+    property string moduleName: 'tcv'
     property int fs: app.width*0.035
     property color c1: 'black'
     property color c2: 'white'
@@ -21,10 +21,6 @@ ApplicationWindow {
     property string user: ''
     property string url: ''
     FontLoader{name: "FontAwesome"; source: "qrc:/fontawesome-webfont.ttf"}
-    USettings{
-        id: unikSettings
-        url:pws+'/'+app.moduleName+'/cfg'
-    }
     Item{
         id: xApp
         anchors.fill: parent
@@ -38,8 +34,8 @@ ApplicationWindow {
                 }
             }
         }
-        ULogView{id: uLogView}
-        UWarnings{id: uWarnings}
+        //ULogView{id: uLogView}
+        //UWarnings{id: uWarnings}
     }
     Timer{
         id:tCheck
@@ -104,11 +100,9 @@ ApplicationWindow {
                     break
                 }
             }
-            unik.ttsEngineSelected(0)
             unik.ttsLanguageSelected(index)
             unik.speak('Idioma Español seleccionado.')
         }
-
         let user=''
         let launch=false
         let args = Qt.application.arguments
@@ -121,7 +115,7 @@ ApplicationWindow {
                 user=d0[1]
                 app.user=user
                 app.url='https://www.twitch.tv/embed/'+user+'/chat'
-                uLogView.showLog('Channel: '+app.url)
+                //uLogView.showLog('Channel: '+app.url)
             }
             if(args[i].indexOf('-launch')>=0){
                 launch=true
@@ -135,23 +129,6 @@ ApplicationWindow {
         //Depurando
         app.visible=true
         //getViewersCount()
-    }
-
-    function getViewersCount(){
-        //https://api.twitch.tv/kraken/streams?channel=nextsigner&client_id=wfvvsxt224sno6ek4ou54tipei87bg
-        //"E:/nsp/unik-dev-apps/twitch-chat-to-voice/curl/bin/curl.exe" -H 'Client-ID: wfvvsxt224sno6ek4ou54tipei87bg' -X GET 'https://api.twitch.tv/helix/streams?channel=nextsigner'
-        var req = new XMLHttpRequest();
-        req.open('GET', 'https://api.twitch.tv/kraken/streams?channel=nextsigner&client_id=wfvvsxt224sno6ek4ou54tipei87bg', true);
-        req.onreadystatechange = function (aEvt) {
-            if (req.readyState === 4) {
-                if(req.status === 200){
-                    uLogView.showLog(req.responseText);
-                }else{
-                    //uLogView.showLog("Error loading page\n");
-                }
-            }
-        };
-        req.send(null);
     }
 }
 
