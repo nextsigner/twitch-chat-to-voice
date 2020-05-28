@@ -106,7 +106,7 @@ ApplicationWindow {
             }
             unik.ttsEngineSelected(0)
             unik.ttsLanguageSelected(index)
-            //unik.speak('Idioma Español seleccionado.')
+            unik.speak('Idioma Español seleccionado.')
         }
 
         let user=''
