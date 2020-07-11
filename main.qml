@@ -82,10 +82,10 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Esc'
         onActivated: {
-            if(uLogView.visible){
-                uLogView.visible=false
-                return
-            }
+//            if(uLogView.visible){
+//                uLogView.visible=false
+//                return
+//            }
             Qt.quit()
         }
     }
@@ -114,13 +114,14 @@ ApplicationWindow {
                 //uLogView.showLog(d0[1])
                 user=d0[1]
                 app.user=user
-                app.url='https://www.twitch.tv/embed/'+user+'/chat'
-                //uLogView.showLog('Channel: '+app.url)
+                app.url='https://www.twitch.tv/embed/'+user+'/chat?parent=nextsigner.github.io'
+                console.log('app.url: '+app.url)
             }
             if(args[i].indexOf('-launch')>=0){
                 launch=true
             }
         }
+        //app.url='https://www.twitch.tv/embed/nextsigner/chat?parent=nextsigner.github.io'
         wv.url=app.url
         if(launch){
             Qt.openUrlExternally(app.url)
