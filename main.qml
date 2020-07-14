@@ -71,8 +71,14 @@ ApplicationWindow {
                 }
                 onLoadProgressChanged: {
                     if(loadProgress===100){
+                        if((''+wv.url)==='http://twitch.tv/nextsigner/embed'){
+                            app.url='https://www.twitch.tv/embed/nextsigner/chat?parent=nextsigner.github.io'
+                            wv.url=app.url
+                            wv.visible=true
+                        }
                         wv.visible=true
                         tCheck.start()
+
                     }
                 }
             }
