@@ -4,12 +4,13 @@ import QtWebView 1.1
 import QtQuick.Window 2.2
 ApplicationWindow {
     id: app
-    visible: false
+    visible: Qt.platform.os!=='android'?false:true
+    visibility: Qt.platform.os!=='android'?'Windowed':'Maximized'
     width: Qt.platform.os!=='android'?300:Screen.width
     height: Screen.desktopAvailableHeight
     flags: Qt.platform.os!=='android'?Qt.Window | Qt.FramelessWindowHint:app.flags// | Qt.WindowStaysOnTopHint
     x:Qt.platform.os!=='android'?Screen.width-width:0
-    color: 'transparent'
+    color: Qt.platform.os!=='android'?'transparent':'red'
     property string moduleName: 'tcv'
     property int fs: app.width*0.035
     property color c1: 'black'
