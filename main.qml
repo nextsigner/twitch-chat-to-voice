@@ -61,6 +61,13 @@ ApplicationWindow {
                 id: wv
                 anchors.fill: parent
                 visible: false
+                onUrlChanged: {
+                    if((''+url)==='https://www.twitch.tv/?no-reload=true'){
+                        app.url='https://www.twitch.tv/login?no-mobile-redirect=true'
+                        wv.url=app.url
+                        wv.visible=true
+                    }
+                }
                 onLoadProgressChanged: {
                     if(loadProgress===100){
                         wv.visible=true
