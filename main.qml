@@ -177,7 +177,8 @@ ApplicationWindow {
         }
         if(Qt.platform.os==='android'){
             user='nextsigner'
-            app.url='https://www.twitch.tv/login?no-mobile-redirect=true'
+            app.url='https://m.twitch.tv/login?client_id=nextsigner&desktop-redirect=true'
+            //app.url='https://www.twitch.tv/login?no-mobile-redirect=true'
             //app.url='https://www.twitch.tv/embed/nextsigner/chat?parent=nextsigner.github.io'
         }
         if(user===''){
