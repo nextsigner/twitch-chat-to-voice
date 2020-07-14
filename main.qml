@@ -63,13 +63,6 @@ ApplicationWindow {
             id: xSetMod
             width: xApp.width
             anchors.horizontalCenter: parent.horizontalCenter
-            z: wv.z+1000
-                Timer{
-                    running: true
-                    repeat: true
-                    interval: 100
-                    onTriggered: xSetMod.z++
-                }
         }
         //ULogView{id: uLogView}
         //UWarnings{id: uWarnings}
@@ -158,7 +151,10 @@ ApplicationWindow {
                 launch=true
             }
         }
-        //app.url='https://www.twitch.tv/embed/nextsigner/chat?parent=nextsigner.github.io'
+        if(Qt.platform.os==='android'){
+            user='nextsigner'
+            app.url='https://www.twitch.tv/embed/nextsigner/chat?parent=nextsigner.github.io'
+        }
         if(user===''){
             app.visible=true
             xSetMod.visible=true
