@@ -46,12 +46,16 @@ ApplicationWindow {
         anchors.fill: parent
         Rectangle{
             anchors.fill: parent
+            color: '#ff8833'
             WebView{
                 id: wv
                 anchors.fill: parent
-
+                visible: false
                 onLoadProgressChanged: {
-                    if(loadProgress===100)tCheck.start()
+                    if(loadProgress===100){
+                        wv.visible=true
+                        tCheck.start()
+                    }
                 }
             }
         }
