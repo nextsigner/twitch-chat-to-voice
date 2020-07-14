@@ -41,6 +41,16 @@ ApplicationWindow {
             app.c4=ct[3]
         }
     }
+    onClosing: {
+        if(Qt.platform.os==='android'){
+            if(wv.visible){
+                wv.visible=false
+                close.accepted = false
+            }else{
+                close.accepted = true
+            }
+        }
+    }
     Item{
         id: xApp
         anchors.fill: parent
