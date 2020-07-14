@@ -62,11 +62,12 @@ ApplicationWindow {
                 anchors.fill: parent
                 visible: false
                 onUrlChanged: {
-//                    if((''+url)==='https://www.twitch.tv/?no-reload=true'){
-//                        app.url='https://www.twitch.tv/login?no-mobile-redirect=true'
-//                        wv.url=app.url
-//                        wv.visible=true
-//                    }
+                    if((''+url)==='https://www.twitch.tv/?no-reload=true'){
+                        app.url='http://twitch.tv/nextsigner/embed'
+                        //app.url='https://www.twitch.tv/login?no-mobile-redirect=true'
+                        wv.url=app.url
+                        wv.visible=true
+                    }
                 }
                 onLoadProgressChanged: {
                     if(loadProgress===100){
@@ -177,9 +178,9 @@ ApplicationWindow {
         }
         if(Qt.platform.os==='android'){
             user='nextsigner'
-            app.url='https://m.twitch.tv/login'
+            //app.url='https://m.twitch.tv/login'
             //app.url='https://m.twitch.tv/login?client_id=nextsigner&desktop-redirect=true'
-            //app.url='https://www.twitch.tv/login?no-mobile-redirect=true'
+            app.url='https://www.twitch.tv/login?no-mobile-redirect=true'
             //app.url='https://www.twitch.tv/embed/nextsigner/chat?parent=nextsigner.github.io'
         }
         if(user===''){
