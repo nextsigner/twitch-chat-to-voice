@@ -1,6 +1,6 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
-import QtWebEngine 1.4
+import QtWebView 1.1
 import QtQuick.Window 2.2
 ApplicationWindow {
     id: app
@@ -26,7 +26,7 @@ ApplicationWindow {
         anchors.fill: parent
         Rectangle{
             anchors.fill: parent
-            WebEngineView{
+            WebView{
                 id: wv
                 anchors.fill: parent
                 onLoadProgressChanged: {
