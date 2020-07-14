@@ -60,6 +60,12 @@ ApplicationWindow {
             width: xApp.width
             anchors.horizontalCenter: parent.horizontalCenter
             z: wv.z+1000
+                Timer{
+                    running: true
+                    repeat: true
+                    interval: 100
+                    onTriggered: xSetMod.z++
+                }
         }
         //ULogView{id: uLogView}
         //UWarnings{id: uWarnings}
