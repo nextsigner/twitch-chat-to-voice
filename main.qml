@@ -20,7 +20,24 @@ ApplicationWindow {
     property bool voiceEnabled: true
     property string user: ''
     property string url: ''
+    property string moderador:''
     FontLoader{name: "FontAwesome"; source: "qrc:/fontawesome-webfont.ttf"}
+    USettings{
+        id: unikSettings
+        url:app.moduleName+'.cfg'
+        onCurrentNumColorChanged: setVars()
+        Component.onCompleted: {
+            setVars()
+        }
+        function setVars(){
+            let m0=defaultColors.split('|')
+            let ct=m0[currentNumColor].split('-')
+            app.c1=ct[0]
+            app.c2=ct[1]
+            app.c3=ct[2]
+            app.c4=ct[3]
+        }
+    }
     Item{
         id: xApp
         anchors.fill: parent
@@ -33,6 +50,11 @@ ApplicationWindow {
                     if(loadProgress===100)tCheck.start()
                 }
             }
+        }
+        XSetMod{
+            id: xSetMod
+            width: xApp.width
+            anchors.horizontalCenter: parent.horizontalCenter
         }
         //ULogView{id: uLogView}
         //UWarnings{id: uWarnings}
@@ -82,10 +104,10 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Esc'
         onActivated: {
-//            if(uLogView.visible){
-//                uLogView.visible=false
-//                return
-//            }
+            //            if(uLogView.visible){
+            //                uLogView.visible=false
+            //                return
+            //            }
             Qt.quit()
         }
     }
@@ -122,6 +144,11 @@ ApplicationWindow {
             }
         }
         //app.url='https://www.twitch.tv/embed/nextsigner/chat?parent=nextsigner.github.io'
+        if(user===''){
+            app.visible=true
+            xSetMod.visible=true
+            return
+        }
         wv.url=app.url
         if(launch){
             Qt.openUrlExternally(app.url)
@@ -130,6 +157,16 @@ ApplicationWindow {
         //Depurando
         app.visible=true
         //getViewersCount()
+    }
+    function setDesktopIcon(params){
+        let path=pws+"/"+app.moduleName
+        if(Qt.platform.os==='windows'){
+            if(!unik.folderExist(path)){
+                unik.mkdir(path)
+                app.l(path)
+            }
+            unik.createLink(unik.getPath(1)+"/unik.exe", " "+params+" -git=https://github.com/nextsigner/"+app.moduleName+".git",  unik.getPath(7)+"/Desktop/Update-"+app.moduleName.toUpperCase()+".lnk", "Update-"+app.moduleName.toUpperCase()+"", path);
+        }
     }
 }
 
