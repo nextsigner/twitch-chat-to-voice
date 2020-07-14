@@ -27,7 +27,9 @@ ApplicationWindow {
         url:app.moduleName+'.cfg'
         onCurrentNumColorChanged: setVars()
         Component.onCompleted: {
-            setVars()
+            if(Qt.platform.os!=='android'){
+                setVars()
+            }
         }
         function setVars(){
             let m0=defaultColors.split('|')
@@ -46,6 +48,7 @@ ApplicationWindow {
             WebView{
                 id: wv
                 anchors.fill: parent
+
                 onLoadProgressChanged: {
                     if(loadProgress===100)tCheck.start()
                 }
