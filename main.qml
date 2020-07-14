@@ -5,10 +5,10 @@ import QtQuick.Window 2.2
 ApplicationWindow {
     id: app
     visible: false
-    width: 300
+    width: Qt.platform.os!=='android'?300:Screen.width
     height: Screen.desktopAvailableHeight
-    flags: Qt.Window | Qt.FramelessWindowHint// | Qt.WindowStaysOnTopHint
-    x:Screen.width-width
+    flags: Qt.platform.os!=='android'?Qt.Window | Qt.FramelessWindowHint:app.flags// | Qt.WindowStaysOnTopHint
+    x:Qt.platform.os!=='android'?Screen.width-width:0
     color: 'transparent'
     property string moduleName: 'tcv'
     property int fs: app.width*0.035
