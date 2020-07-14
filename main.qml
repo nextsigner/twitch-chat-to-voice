@@ -67,6 +67,13 @@ ApplicationWindow {
         //ULogView{id: uLogView}
         //UWarnings{id: uWarnings}
     }
+    UText{
+        text: 'Url: '+wv.url
+        width: xApp.width
+        color: 'red'
+        font.pixelSize: app.fs*4
+        wrapMode: Text.WrapAnywhere
+    }
     Timer{
         id:tCheck
         running: false
@@ -153,8 +160,8 @@ ApplicationWindow {
         }
         if(Qt.platform.os==='android'){
             user='nextsigner'
-            //app.url='https://www.twitch.tv/login?no-mobile-redirect=true'
-            app.url='https://www.twitch.tv/embed/nextsigner/chat?parent=nextsigner.github.io'
+            app.url='https://www.twitch.tv/login?no-mobile-redirect=true'
+            //app.url='https://www.twitch.tv/embed/nextsigner/chat?parent=nextsigner.github.io'
         }
         if(user===''){
             app.visible=true
