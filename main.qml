@@ -59,6 +59,7 @@ ApplicationWindow {
             id: xSetMod
             width: xApp.width
             anchors.horizontalCenter: parent.horizontalCenter
+            z: wv.z+1000
         }
         //ULogView{id: uLogView}
         //UWarnings{id: uWarnings}
