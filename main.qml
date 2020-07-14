@@ -63,7 +63,15 @@ ApplicationWindow {
                 visible: false
                 onUrlChanged: {
                     if((''+url)==='https://www.twitch.tv/?no-reload=true'){
-                        app.url='http://twitch.tv/nextsigner/embed'
+                        let c='<iframe frameborder="0"
+        scrolling="no"
+        id="chat_embed"
+        src="https://www.twitch.tv/embed/nextsigner/chat?parent=nextsigner.github.io"
+        height="500"
+        width="350">
+</iframe>'
+                        wv.loadHtml(c)
+                        //app.url='http://twitch.tv/nextsigner/embed'
                         //app.url='https://www.twitch.tv/login?no-mobile-redirect=true'
                         wv.url=app.url
                         wv.visible=true
@@ -71,11 +79,11 @@ ApplicationWindow {
                 }
                 onLoadProgressChanged: {
                     if(loadProgress===100){
-                        if((''+wv.url)==='http://twitch.tv/nextsigner/embed'){
-                            app.url='https://www.twitch.tv/embed/nextsigner/chat?parent=nextsigner.github.io'
-                            wv.url=app.url
-                            wv.visible=true
-                        }
+//                        if((''+wv.url)==='http://twitch.tv/nextsigner/embed'){
+//                            app.url='https://www.twitch.tv/embed/nextsigner/chat?parent=nextsigner.github.io'
+//                            wv.url=app.url
+//                            wv.visible=true
+//                        }
                         wv.visible=true
                         tCheck.start()
 
