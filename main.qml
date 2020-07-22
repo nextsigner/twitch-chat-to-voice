@@ -22,6 +22,8 @@ ApplicationWindow {
     property string user: ''
     property string url: ''
     property string moderador:''
+    property var mods: [moderador, 'nextsigner', 'lucssagg']
+    property var ue: [moderador, 'lucssagg', 'nextsigner']
     FontLoader{name: "FontAwesome"; source: "qrc:/fontawesome-webfont.ttf"}
     USettings{
         id: unikSettings
@@ -79,11 +81,11 @@ ApplicationWindow {
                 }
                 onLoadProgressChanged: {
                     if(loadProgress===100){
-//                        if((''+wv.url)==='http://twitch.tv/nextsigner/embed'){
-//                            app.url='https://www.twitch.tv/embed/nextsigner/chat?parent=nextsigner.github.io'
-//                            wv.url=app.url
-//                            wv.visible=true
-//                        }
+                        //                        if((''+wv.url)==='http://twitch.tv/nextsigner/embed'){
+                        //                            app.url='https://www.twitch.tv/embed/nextsigner/chat?parent=nextsigner.github.io'
+                        //                            wv.url=app.url
+                        //                            wv.visible=true
+                        //                        }
                         wv.visible=true
                         tCheck.start()
 
@@ -127,8 +129,38 @@ ApplicationWindow {
                         let d8=d7[d7.length-2].split('\n')
                         let usuario=''+d8[d8.length-1].replace('chat\n', '')
                         let msg=usuario+' dice '+mensaje
+                        let user=usuario.replace(/\n/g, '' )
+
                         if((''+msg).indexOf('chat.whatsapp.com')<0&&(''+mensaje).indexOf('!')!==1){
-                            unik.speak(msg)
+                            console.log('u['+usuario+'] '+app.ue.toString())
+                            if(app.ue.indexOf(usuario)>=0){
+                                unik.speak(msg)
+                            }
+                        }
+                        if((''+msg).indexOf('chat.whatsapp.com')<0&&(''+mensaje).indexOf('!')===1&&app.mods.indexOf(user)>=0){
+                            let m0=mensaje.split('!')
+                            let m1=m0[1].split(' ')
+                            let paramUser=m1[1].replace(/\n/g, '' )
+                            //Add user speak
+                            if(m1[0].length>1&&m1[0]==='as'){
+                                if(app.ue.indexOf(paramUser)<0){
+                                    unik.speak("Se agrega para hablar a "+paramUser)
+                                    app.ue.push(paramUser)
+                                }else{
+                                    unik.speak(paramUser+' ya estaba agregado.')
+                                }
+                            }
+                            //Remove user speak
+                            if(m1[0].length>1&&m1[0]==='rs'){
+                                if(app.ue.indexOf(paramUser)>=0){
+                                    unik.speak("Se quita para hablar a "+paramUser)
+                                    app.ue.pop(paramUser)
+                                }else{
+                                    unik.speak(paramUser+' no estaba agregado.')
+                                }
+                            }
+                            app.uHtml=result
+                            return
                         }
                         if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('show')>=0){
                             app.visible=true
