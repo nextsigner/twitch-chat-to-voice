@@ -22,8 +22,9 @@ ApplicationWindow {
     property string user: ''
     property string url: ''
     property string moderador:''
-    property var mods: [moderador, 'nextsigner', 'lucssagg']
-    property var ue: [moderador, 'lucssagg', 'nextsigner']
+    property var mods: ['ricardo__martin', 'nextsigner', 'lucssagg']
+    property var ue: ['ricardo__martin', 'lucssagg', 'nextsigner']
+    property bool allSpeak: true
     FontLoader{name: "FontAwesome"; source: "qrc:/fontawesome-webfont.ttf"}
     USettings{
         id: unikSettings
@@ -101,13 +102,13 @@ ApplicationWindow {
         //ULogView{id: uLogView}
         //UWarnings{id: uWarnings}
     }
-    UText{
-        text: 'Url: '+wv.url
-        width: xApp.width
-        color: 'red'
-        font.pixelSize: app.fs*4
-        wrapMode: Text.WrapAnywhere
-    }
+//    UText{
+//        text: 'Url: '+wv.url
+//        width: xApp.width
+//        color: 'red'
+//        font.pixelSize: app.fs*4
+//        wrapMode: Text.WrapAnywhere
+//    }
     Timer{
         id:tCheck
         running: false
@@ -133,7 +134,7 @@ ApplicationWindow {
 
                         if((''+msg).indexOf('chat.whatsapp.com')<0&&(''+mensaje).indexOf('!')!==1){
                             console.log('u['+usuario+'] '+app.ue.toString())
-                            if(app.ue.indexOf(usuario)>=0){
+                            if(app.ue.indexOf(usuario)>=0 || app.allSpeak){
                                 unik.speak(msg)
                             }
                         }
@@ -141,6 +142,15 @@ ApplicationWindow {
                             let m0=mensaje.split('!')
                             let m1=m0[1].split(' ')
                             let paramUser=m1[1].replace(/\n/g, '' )
+                            //Set all speak
+                            if(m1[0].length>1&&m1[0]==='alls'){
+                                app.allSpeak=!app.allSpeak
+                                if(app.allSpeak){
+                                    unik.speak("Ahora se oirán todos los mensajes del chat.")
+                                }else{
+                                    unik.speak("Ahora solo algunos usuarios del chat se oirán.")
+                                }
+                            }
                             //Add user speak
                             if(m1[0].length>1&&m1[0]==='as'){
                                 if(app.ue.indexOf(paramUser)<0){
