@@ -171,15 +171,23 @@ ApplicationWindow {
                                     unik.speak(paramUser+' no estaba agregado.')
                                 }
                             }
+                            if(m1[0].length>1&&m1[0]==='hide'){
+                                app.visible=false
+                            }
+                            if(m1[0].length>1&&m1[0]==='show'){
+                                app.visible=true
+                            }
                             app.uHtml=result
                             return
                         }
-                        if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('show')>=0){
-                            app.visible=true
-                        }
-                        if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('hide')>=0){
-                            app.visible=false
-                        }
+
+//                        if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('show')>=0){
+//                            app.visible=true
+//                        }
+//                        if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('hide')>=0){
+//                            app.visible=false
+//                        }
+
                         if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('launch')>=0){
                             Qt.openUrlExternally(app.url)
                         }
