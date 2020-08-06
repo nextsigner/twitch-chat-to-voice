@@ -137,6 +137,8 @@ ApplicationWindow {
                             if(app.ue.indexOf(usuario)>=0 || app.allSpeak){
                                 unik.speak(msg)
                             }
+                            app.uHtml=result
+                            return
                         }
                         if((''+msg).indexOf('chat.whatsapp.com')<0&&(''+mensaje).indexOf('!')===1&&app.mods.indexOf(user)>=0){
                             let m0=mensaje.split('!')
@@ -183,6 +185,8 @@ ApplicationWindow {
                         }
                         app.flags = Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
                         app.flags = Qt.Window | Qt.FramelessWindowHint
+                        app.uHtml=result
+                        return
                     }
                 }
                 app.uHtml=result
