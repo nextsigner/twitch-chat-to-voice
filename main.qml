@@ -118,6 +118,7 @@ ApplicationWindow {
             wv.runJavaScript('document.getElementById("root").innerText', function(result) {
                 if(result!==app.uHtml){
                     let d0=result//.replace(/\n/g, 'XXXXX')
+                    app.uHtml=result
                     if(d0.indexOf(':')>0){
                         let d1=d0.split(':')
                         let d2=d1[d1.length-1]
@@ -137,8 +138,6 @@ ApplicationWindow {
                             if(app.ue.indexOf(usuario)>=0 || app.allSpeak){
                                 unik.speak(msg)
                             }
-                            app.uHtml=result
-                            return
                         }
                         if((''+msg).indexOf('chat.whatsapp.com')<0&&(''+mensaje).indexOf('!')===1&&app.mods.indexOf(user)>=0){
                             let m0=mensaje.split('!')
@@ -171,30 +170,20 @@ ApplicationWindow {
                                     unik.speak(paramUser+' no estaba agregado.')
                                 }
                             }
-                            if(m1[0].length>1&&m1[0]==='hide'){
-                                app.visible=false
-                            }
-                            if(m1[0].length>1&&m1[0]==='show'){
-                                app.visible=true
-                            }
                             app.uHtml=result
                             return
                         }
-
-//                        if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('show')>=0){
-//                            app.visible=true
-//                        }
-//                        if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('hide')>=0){
-//                            app.visible=false
-//                        }
-
+                        if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('show')>=0){
+                            app.visible=true
+                        }
+                        if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('hide')>=0){
+                            app.visible=false
+                        }
                         if(msg.indexOf(''+app.user)>=0 &&msg.indexOf('launch')>=0){
                             Qt.openUrlExternally(app.url)
                         }
                         app.flags = Qt.Window | Qt.FramelessWindowHint | Qt.WindowStaysOnTopHint
                         app.flags = Qt.Window | Qt.FramelessWindowHint
-                        app.uHtml=result
-                        return
                     }
                 }
                 app.uHtml=result
