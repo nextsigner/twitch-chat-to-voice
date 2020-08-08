@@ -170,6 +170,14 @@ ApplicationWindow {
                                     unik.speak(paramUser+' no estaba agregado.')
                                 }
                             }
+                            //Set volume speak
+                            if(m1[0].length>1&&m1[0]==='sv'){
+                                if(app.ue.indexOf(paramUser)>=0){
+                                    unik.setTtsVolume(parseInt(paramUser))
+                                }else{
+                                    unik.speak('El comando no se ha aplicado. Falta el valor del volumen.')
+                                }
+                            }
                             app.uHtml=result
                             return
                         }
@@ -202,6 +210,7 @@ ApplicationWindow {
         }
     }
     Component.onCompleted: {
+        unik.setTtsVolume(100)
         if(Qt.platform.os==='linux'){
             let m0=(''+ttsLocales).split(',')
             let index=0
