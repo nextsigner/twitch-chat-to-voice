@@ -86,7 +86,7 @@ ApplicationWindow {
         height="500"
         width="350">
 </iframe>'
-                            wv.loadHtml(c)
+                            //wv.loadHtml(c)
                             //app.url='http://twitch.tv/nextsigner/embed'
                             //app.url='https://www.twitch.tv/login?no-mobile-redirect=true'
                             wv.url=app.url
@@ -130,7 +130,7 @@ ApplicationWindow {
         id:tCheck
         running: false
         repeat: true
-        interval: 1000
+        interval: 200
         onTriggered: {
             wv.runJavaScript('document.getElementById("root").innerText', function(result) {
                 if(result!==app.uHtml){
@@ -153,16 +153,16 @@ ApplicationWindow {
                         if(isVM(msg)&&(''+msg).indexOf('chat.whatsapp.com')<0&&(''+mensaje).indexOf('!')!==1){
                             console.log('u['+usuario+'] '+app.ue.toString())
                             if(app.ue.indexOf(usuario)>=0 || app.allSpeak){
-                                if(Qt.platform.os==='windows'){
-                                    unik.speak(msg)
-                                }else{
+//                                if(Qt.platform.os==='windows'){
+//                                    unik.speak(msg)
+//                                }else{
                                     console.log(msg)
                                     if(user.indexOf('itomyy17')>=0){
                                         unik.speak(msg)
                                     }else{
                                         speakMp3(msg)
                                     }
-                                }
+                                //}
 
                             }
                         }
